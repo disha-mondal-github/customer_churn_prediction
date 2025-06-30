@@ -1,0 +1,18 @@
+tenure
+TotalCharges
+MonthlyCharges
+Contract_Month-to-month
+OnlineSecurity_No
+TechSupport_No
+PaymentMethod_Electronic check
+Contract_Two year
+InternetService_Fiber optic
+gender
+OnlineBackup_No
+Partner
+DeviceProtection_No
+tenure_group_0
+Dependents
+PaperlessBilling
+Contract_One year
+PaymentMethod_Bank transfer (automatic)
