@@ -181,6 +181,5 @@ streamlit run src/app.py
 - **Celebal Technologies** for the internship opportunity
 - **Kaggle** for providing the dataset
 - **Streamlit** for the amazing web framework
-- **scikit-learn** and **XGBoost** teams for excellent ML libraries
 
 ---
