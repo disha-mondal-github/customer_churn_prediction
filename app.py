@@ -9,7 +9,6 @@ import plotly.graph_objects as go
 # Page configuration
 st.set_page_config(
     page_title="Telco Customer Churn Predictor",
-    page_icon="📞",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -167,7 +166,7 @@ def create_probability_gauge(probability):
 
 def main():
     # Header
-    st.markdown('<h1 class="main-header">📞 Telco Customer Churn Predictor</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">Telco Customer Churn Predictor</h1>', unsafe_allow_html=True)
     st.markdown("---")
     
     # Load model and scaler
@@ -184,35 +183,35 @@ def main():
     # Collect input data
     with st.sidebar:
         # Personal Information
-        st.subheader("👤 Personal Details")
+        st.subheader("Personal Details")
         gender = st.selectbox("Gender", ["Male", "Female"])
         senior_citizen = st.selectbox("Senior Citizen", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
         partner = st.selectbox("Has Partner", ["No", "Yes"])
         dependents = st.selectbox("Has Dependents", ["No", "Yes"])
         
         # Account Information
-        st.subheader("📋 Account Details")
+        st.subheader("Account Details")
         tenure = st.slider("Tenure (months)", 0, 72, 12)
         monthly_charges = st.number_input("Monthly Charges", 0.0, 200.0, 50.0, step=0.1)
         total_charges = st.number_input("Total Charges", 0.0, 10000.0, 500.0, step=0.1)
         
         # Services
-        st.subheader("📞 Phone Services")
+        st.subheader("Phone Services")
         phone_service = st.selectbox("Phone Service", ["No", "Yes"])
         multiple_lines = st.selectbox("Multiple Lines", ["No", "Yes", "No phone service"])
         
-        st.subheader("🌐 Internet Services")
+        st.subheader("Internet Services")
         internet_service = st.selectbox("Internet Service", ["No", "DSL", "Fiber optic"])
         online_security = st.selectbox("Online Security", ["No", "Yes", "No internet service"])
         online_backup = st.selectbox("Online Backup", ["No", "Yes", "No internet service"])
         device_protection = st.selectbox("Device Protection", ["No", "Yes", "No internet service"])
         tech_support = st.selectbox("Tech Support", ["No", "Yes", "No internet service"])
         
-        st.subheader("📺 Streaming Services")
+        st.subheader("Streaming Services")
         streaming_tv = st.selectbox("Streaming TV", ["No", "Yes", "No internet service"])
         streaming_movies = st.selectbox("Streaming Movies", ["No", "Yes", "No internet service"])
         
-        st.subheader("💳 Billing Information")
+        st.subheader("Billing Information")
         contract = st.selectbox("Contract", ["Month-to-month", "One year", "Two year"])
         paperless_billing = st.selectbox("Paperless Billing", ["No", "Yes"])
         payment_method = st.selectbox("Payment Method", [
@@ -268,7 +267,7 @@ def main():
         st.header("Prediction")
         
         # Predict button
-        if st.button("🔮 Predict Churn Risk", type="primary", use_container_width=True):
+        if st.button("Predict Churn Risk", type="primary", use_container_width=True):
             # Prepare input data
             input_data = {
                 'gender': gender,
@@ -306,7 +305,7 @@ def main():
                 if prediction == 1:
                     st.markdown(f'''
                     <div class="prediction-container churn-risk">
-                        <h3 style="color: #d32f2f; text-align: center;">⚠️ HIGH CHURN RISK</h3>
+                        <h3 style="color: #d32f2f; text-align: center;"> HIGH CHURN RISK</h3>
                         <p class="probability-text" style="color: #d32f2f;">
                             This customer is likely to churn
                         </p>
@@ -315,7 +314,7 @@ def main():
                 else:
                     st.markdown(f'''
                     <div class="prediction-container no-churn-risk">
-                        <h3 style="color: #388e3c; text-align: center;">✅ LOW CHURN RISK</h3>
+                        <h3 style="color: #388e3c; text-align: center;">LOW CHURN RISK</h3>
                         <p class="probability-text" style="color: #388e3c;">
                             This customer is likely to stay
                         </p>
@@ -338,23 +337,23 @@ def main():
                 risk_factors = []
                 
                 if contract == "Month-to-month":
-                    risk_factors.append("🔸 Month-to-month contract increases churn risk")
+                    risk_factors.append("Month-to-month contract increases churn risk")
                 if payment_method == "Electronic check":
-                    risk_factors.append("🔸 Electronic check payment method")
+                    risk_factors.append("Electronic check payment method")
                 if online_security == "No":
-                    risk_factors.append("🔸 No online security service")
+                    risk_factors.append("No online security service")
                 if tech_support == "No":
-                    risk_factors.append("🔸 No tech support service")
+                    risk_factors.append("No tech support service")
                 if tenure < 12:
-                    risk_factors.append("🔸 New customer (tenure < 1 year)")
+                    risk_factors.append("New customer (tenure < 1 year)")
                 if monthly_charges > 70:
-                    risk_factors.append("🔸 High monthly charges")
+                    risk_factors.append("High monthly charges")
                 
                 if risk_factors:
                     for factor in risk_factors:
                         st.write(factor)
                 else:
-                    st.success("✅ No major risk factors identified")
+                    st.success("No major risk factors identified")
                 
             except Exception as e:
                 st.error(f"Prediction failed: {str(e)}")
@@ -362,7 +361,6 @@ def main():
     # Footer
     st.markdown("---")
     st.markdown(
-        "Built with ❤️ using Streamlit | "
         "Model: Stacked Ensemble (Logistic Regression, Random Forest, XGBoost, LightGBM, SVM, MLP)"
     )
 
