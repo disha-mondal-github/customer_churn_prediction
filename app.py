@@ -9,11 +9,12 @@ import plotly.graph_objects as go
 # Page configuration
 st.set_page_config(
     page_title="Telco Customer Churn Predictor",
+    page_icon=":telephone_receiver:",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better styling
+# Custom CSS for better styling and icons
 st.markdown("""
 <style>
     .main-header {
@@ -21,6 +22,10 @@ st.markdown("""
         color: #1f77b4;
         text-align: center;
         margin-bottom: 2rem;
+    }
+    .main-header::before {
+        content: "\\1F4DE";
+        margin-right: 15px;
     }
     .prediction-container {
         padding: 2rem;
@@ -40,6 +45,49 @@ st.markdown("""
         font-weight: bold;
         text-align: center;
     }
+    .high-risk::before {
+        content: "\\26A0\\FE0F";
+        margin-right: 10px;
+    }
+    .low-risk::before {
+        content: "\\2705";
+        margin-right: 10px;
+    }
+    .section-header {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        margin: 1rem 0;
+    }
+    .personal-icon::before { content: "\\1F464"; margin-right: 8px; }
+    .account-icon::before { content: "\\1F4CB"; margin-right: 8px; }
+    .phone-icon::before { content: "\\1F4DE"; margin-right: 8px; }
+    .internet-icon::before { content: "\\1F310"; margin-right: 8px; }
+    .streaming-icon::before { content: "\\1F4FA"; margin-right: 8px; }
+    .billing-icon::before { content: "\\1F4B3"; margin-right: 8px; }
+    .predict-icon::before { content: "\\1F52E"; margin-right: 8px; }
+    .risk-factor {
+        margin: 5px 0;
+        padding: 5px;
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+        border-radius: 3px;
+    }
+    .risk-factor::before {
+        content: "\\1F538";
+        margin-right: 8px;
+    }
+    .success-factor {
+        margin: 5px 0;
+        padding: 5px;
+        background-color: #d4edda;
+        border-left: 4px solid #28a745;
+        border-radius: 3px;
+    }
+    .success-factor::before {
+        content: "\\2705";
+        margin-right: 8px;
+    }
     /* Fix for metric labels getting cut off */
     div[data-testid="metric-container"] {
         width: 100% !important;
@@ -54,6 +102,10 @@ st.markdown("""
         font-size: 14px !important;
         white-space: nowrap !important;
         overflow: visible !important;
+    }
+    .footer-heart::before {
+        content: "\\2764\\FE0F";
+        margin: 0 5px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -183,35 +235,35 @@ def main():
     # Collect input data
     with st.sidebar:
         # Personal Information
-        st.subheader("Personal Details")
+        st.markdown('<div class="section-header personal-icon">Personal Details</div>', unsafe_allow_html=True)
         gender = st.selectbox("Gender", ["Male", "Female"])
         senior_citizen = st.selectbox("Senior Citizen", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
         partner = st.selectbox("Has Partner", ["No", "Yes"])
         dependents = st.selectbox("Has Dependents", ["No", "Yes"])
         
         # Account Information
-        st.subheader("Account Details")
+        st.markdown('<div class="section-header account-icon">Account Details</div>', unsafe_allow_html=True)
         tenure = st.slider("Tenure (months)", 0, 72, 12)
         monthly_charges = st.number_input("Monthly Charges", 0.0, 200.0, 50.0, step=0.1)
         total_charges = st.number_input("Total Charges", 0.0, 10000.0, 500.0, step=0.1)
         
         # Services
-        st.subheader("Phone Services")
+        st.markdown('<div class="section-header phone-icon">Phone Services</div>', unsafe_allow_html=True)
         phone_service = st.selectbox("Phone Service", ["No", "Yes"])
         multiple_lines = st.selectbox("Multiple Lines", ["No", "Yes", "No phone service"])
         
-        st.subheader("Internet Services")
+        st.markdown('<div class="section-header internet-icon">Internet Services</div>', unsafe_allow_html=True)
         internet_service = st.selectbox("Internet Service", ["No", "DSL", "Fiber optic"])
         online_security = st.selectbox("Online Security", ["No", "Yes", "No internet service"])
         online_backup = st.selectbox("Online Backup", ["No", "Yes", "No internet service"])
         device_protection = st.selectbox("Device Protection", ["No", "Yes", "No internet service"])
         tech_support = st.selectbox("Tech Support", ["No", "Yes", "No internet service"])
         
-        st.subheader("Streaming Services")
+        st.markdown('<div class="section-header streaming-icon">Streaming Services</div>', unsafe_allow_html=True)
         streaming_tv = st.selectbox("Streaming TV", ["No", "Yes", "No internet service"])
         streaming_movies = st.selectbox("Streaming Movies", ["No", "Yes", "No internet service"])
         
-        st.subheader("Billing Information")
+        st.markdown('<div class="section-header billing-icon">Billing Information</div>', unsafe_allow_html=True)
         contract = st.selectbox("Contract", ["Month-to-month", "One year", "Two year"])
         paperless_billing = st.selectbox("Paperless Billing", ["No", "Yes"])
         payment_method = st.selectbox("Payment Method", [
@@ -305,7 +357,7 @@ def main():
                 if prediction == 1:
                     st.markdown(f'''
                     <div class="prediction-container churn-risk">
-                        <h3 style="color: #d32f2f; text-align: center;"> HIGH CHURN RISK</h3>
+                        <h3 class="high-risk" style="color: #d32f2f; text-align: center;">HIGH CHURN RISK</h3>
                         <p class="probability-text" style="color: #d32f2f;">
                             This customer is likely to churn
                         </p>
@@ -314,7 +366,7 @@ def main():
                 else:
                     st.markdown(f'''
                     <div class="prediction-container no-churn-risk">
-                        <h3 style="color: #388e3c; text-align: center;">LOW CHURN RISK</h3>
+                        <h3 class="low-risk" style="color: #388e3c; text-align: center;">LOW CHURN RISK</h3>
                         <p class="probability-text" style="color: #388e3c;">
                             This customer is likely to stay
                         </p>
@@ -351,9 +403,9 @@ def main():
                 
                 if risk_factors:
                     for factor in risk_factors:
-                        st.write(factor)
+                        st.markdown(f'<div class="risk-factor">{factor}</div>', unsafe_allow_html=True)
                 else:
-                    st.success("No major risk factors identified")
+                    st.markdown('<div class="success-factor">No major risk factors identified</div>', unsafe_allow_html=True)
                 
             except Exception as e:
                 st.error(f"Prediction failed: {str(e)}")
@@ -361,7 +413,9 @@ def main():
     # Footer
     st.markdown("---")
     st.markdown(
-        "Model: Stacked Ensemble (Logistic Regression, Random Forest, XGBoost, LightGBM, SVM, MLP)"
+        '<div>Built by Disha using Streamlit | '
+        'Model: Stacked Ensemble (Logistic Regression, Random Forest, XGBoost, LightGBM, SVM, MLP)</div>',
+        unsafe_allow_html=True
     )
 
 if __name__ == "__main__":
