@@ -441,7 +441,7 @@ def main():
     # Footer
     st.markdown("---")
     st.markdown(
-        '<div>Built <span class="footer-heart"></span> using Streamlit | '
+        '<div>Built by Disha using Streamlit | '
         'Model: Stacked Ensemble (Logistic Regression, Random Forest, XGBoost, LightGBM, SVM, MLP)</div>',
         unsafe_allow_html=True
     )
