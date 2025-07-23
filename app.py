@@ -68,10 +68,12 @@ st.markdown("""
     .predict-icon::before { content: "\\1F52E"; margin-right: 8px; }
     .risk-factor {
         margin: 5px 0;
-        padding: 5px;
+        padding: 10px;
         background-color: #fff3cd;
         border-left: 4px solid #ffc107;
         border-radius: 3px;
+        color: #856404 !important;
+        font-weight: 500;
     }
     .risk-factor::before {
         content: "\\1F538";
@@ -79,14 +81,40 @@ st.markdown("""
     }
     .success-factor {
         margin: 5px 0;
-        padding: 5px;
+        padding: 10px;
         background-color: #d4edda;
         border-left: 4px solid #28a745;
         border-radius: 3px;
+        color: #155724 !important;
+        font-weight: 500;
     }
     .success-factor::before {
         content: "\\2705";
         margin-right: 8px;
+    }
+    /* Dark mode compatibility */
+    @media (prefers-color-scheme: dark) {
+        .risk-factor {
+            background-color: #664d03;
+            color: #fff3cd !important;
+            border-left-color: #ffca2c;
+        }
+        .success-factor {
+            background-color: #0f5132;
+            color: #d1e7dd !important;
+            border-left-color: #198754;
+        }
+    }
+    /* Streamlit dark theme compatibility */
+    .stApp[data-theme="dark"] .risk-factor {
+        background-color: #664d03;
+        color: #fff3cd !important;
+        border-left-color: #ffca2c;
+    }
+    .stApp[data-theme="dark"] .success-factor {
+        background-color: #0f5132;
+        color: #d1e7dd !important;
+        border-left-color: #198754;
     }
     /* Fix for metric labels getting cut off */
     div[data-testid="metric-container"] {
@@ -413,7 +441,7 @@ def main():
     # Footer
     st.markdown("---")
     st.markdown(
-        '<div>Built by Disha using Streamlit | '
+        '<div>Built <span class="footer-heart"></span> using Streamlit | '
         'Model: Stacked Ensemble (Logistic Regression, Random Forest, XGBoost, LightGBM, SVM, MLP)</div>',
         unsafe_allow_html=True
     )
